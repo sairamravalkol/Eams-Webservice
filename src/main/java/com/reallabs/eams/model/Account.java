@@ -40,6 +40,26 @@ public class Account implements Serializable {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
 	private Set<Deposit> deposits;
+	
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public Set<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(Set<Loan> loans) {
+		this.loans = loans;
+	}
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+	private Set<Loan> loans = new HashSet<>();
 
 	@Override
 	public int hashCode() {
@@ -138,13 +158,6 @@ public class Account implements Serializable {
 		this.fatherName = fatherName;
 	}
 
-	public Double getbalance() {
-		return balance;
-	}
-
-	public void setbalance(Double balance) {
-		this.balance = balance;
-	}
 
 	public String getAddress() {
 		return address;
