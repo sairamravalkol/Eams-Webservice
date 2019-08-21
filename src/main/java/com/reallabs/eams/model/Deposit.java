@@ -5,18 +5,26 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="DEPOSIT")
 public class Deposit implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2952750786238018667L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long depositId;
 	@Column
 	private Double basic;
@@ -30,8 +38,9 @@ public class Deposit implements Serializable{
 	private Date lastUpdate;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "account_id")
+	@JsonIgnore
 	private Account account;
 	
 	

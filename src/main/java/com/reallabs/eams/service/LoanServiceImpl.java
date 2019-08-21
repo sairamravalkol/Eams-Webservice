@@ -23,6 +23,11 @@ public class LoanServiceImpl implements LoanService {
 		loanRepository.findAll().forEach(loans::add);
 		return loans;
 	}
+	
+	public List<Loan> getAllLoansByAccountId(Account account) {
+		return loanRepository.findByAccount(account);
+		
+	}
 
 	@Override
 	public Optional<Loan> getLoan(String loanId) {

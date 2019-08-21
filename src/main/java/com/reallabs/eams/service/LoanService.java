@@ -3,6 +3,7 @@ package com.reallabs.eams.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.reallabs.eams.model.Account;
 import com.reallabs.eams.model.Loan;
 
 public interface LoanService {
@@ -13,8 +14,10 @@ public interface LoanService {
 
 	void saveLoan(Loan loan);
 
-	void updateLoan(String loanId,Loan loan);
+	void updateLoan(String loanId, Loan loan);
 
 	void deleteLoan(String loanId);
+
+	List<Loan> getAllLoansByAccountId(Account account);
 
 }
