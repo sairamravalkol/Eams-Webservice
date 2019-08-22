@@ -23,13 +23,10 @@ public class DepositServiceImpl implements DepositService {
 		depositRepository.findAll().forEach(deposits::add);
 		return deposits;
 	}
-	
-	
 
 	@Override
 	public Optional<Deposit> getDeposit(String depositId) {
-		 Optional<Deposit> deposit = depositRepository.findById(Long.valueOf(depositId));
-		 return deposit;
+		return depositRepository.findById(Long.valueOf(depositId));
 	}
 
 	@Override
@@ -48,14 +45,9 @@ public class DepositServiceImpl implements DepositService {
 
 	}
 
-
-
 	@Override
 	public List<Deposit> getAllDepositsByAccountId(Account account) {
 		return depositRepository.findByAccount(account);
 	}
 
-
-
-	
 }
