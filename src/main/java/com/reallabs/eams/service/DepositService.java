@@ -11,6 +11,7 @@ public interface DepositService {
 	List<Deposit> getAllDeposits();
 	
 	Optional<Deposit> getDeposit(String depositId);
+	Optional<Deposit> getDepositByAccountId(String accountId);
 
 	void saveDeposit(Deposit deposit);
 

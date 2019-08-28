@@ -1,22 +1,33 @@
 package com.reallabs.eams.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value={"createdAt","lastUpdate"})
 public class Account implements Serializable {
 
 	/**
@@ -41,7 +52,11 @@ public class Account implements Serializable {
 	@Column
 	private String imageUrl;
 	@Column
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Date createdAt;
 
@@ -150,6 +165,14 @@ public class Account implements Serializable {
 
 	public void setDeposits(Set<Deposit> deposits) {
 		this.deposits = deposits;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [accountId=" + accountId + ", accountName=" + accountName + ", fatherName=" + fatherName
+				+ ", balance=" + balance + ", address=" + address + ", email=" + email + ", phone=" + phone
+				+ ", imageUrl=" + imageUrl + ", lastUpdate=" + lastUpdate + ", createdAt=" + createdAt + ", deposits="
+				+ deposits + ", loans=" + loans + "]";
 	}
 
 

@@ -33,8 +33,17 @@ public class DepositController {
 
 	@GetMapping("Accounts/{accountId}/Deposits")
 	public List<Deposit> getAllDepositsByAccount(@PathVariable("accountId") String accountId) {
-		Account account = accountService.getAccount(accountId).get();
+
+		Account account = accountService.getAccount(accountId)
+				.orElseThrow(() -> new ResourceNotFoundException("Id not found"));
 		return depositService.getAllDepositsByAccountId(account);
+	}
+
+	@GetMapping("getDepositByAccountId/{accountId}")
+	public Optional<Deposit> getDepositByAccountId(@PathVariable("accountId") String accountId) {
+		Optional<Deposit> depositByAccountId = depositService.getDepositByAccountId(accountId);
+		System.out.println(depositByAccountId);
+		return depositByAccountId;
 	}
 
 	@GetMapping("Deposits/{depositId}")

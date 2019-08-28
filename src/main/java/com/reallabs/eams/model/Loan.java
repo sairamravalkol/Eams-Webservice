@@ -1,23 +1,30 @@
 package com.reallabs.eams.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="Loan")
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value= {"lastUpdate"},allowGetters=true)
 public class Loan implements Serializable{
 	
 	/**
@@ -31,6 +38,7 @@ public class Loan implements Serializable{
 	private Double loanAmt;
 	@Column
 	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;
 	
 	

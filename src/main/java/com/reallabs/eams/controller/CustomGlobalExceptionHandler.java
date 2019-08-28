@@ -22,6 +22,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		cer.setStatus(HttpStatus.NOT_FOUND.value());
 		
 		
-		return new ResponseEntity<CustomerErrorResponse>(cer,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(cer,HttpStatus.NOT_FOUND);
 	}
 }
