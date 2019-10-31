@@ -65,21 +65,31 @@ public class DepositServiceImpl implements DepositService {
 		Deposit newDeposit = new Deposit();
 		Optional<Account> account = accountService.getAccount(accountId);
 		if (account.isPresent()) {
-			
+
 			Double loanTotal = 0.0;
 			Date currentDate = new Date(System.currentTimeMillis());
 
 			List<Loan> allLoansByAccountId = loanService.getAllLoansByAccountId(account.get());
-			for (Loan loan : allLoansByAccountId) {
-				if ((currentDate.getMonth() -1) == loan.getLastUpdate().getMonth()) {
-					loanTotal = loanTotal+loan.getLoanAmt();
+			System.out.println("All Loans by accountId" + allLoansByAccountId.size());
+			if (allLoansByAccountId.size() > 0) {
+				for (Loan loan : allLoansByAccountId) {
+					if ((currentDate.getMonth() - 1) == loan.getLastUpdate().getMonth()) {
+						loanTotal = loanTotal + loan.getLoanAmt();
+					}
+					newDeposit.setLoanTotal(loanTotal);
+					newDeposit.setBasic(BASIC_AMOUNT);
+					newDeposit.setInterestTotal((loanTotal * TIME * INTEREST_RATE) / 100);
+					newDeposit.setTotal(BASIC_AMOUNT + loanTotal + (loanTotal * TIME * INTEREST_RATE) / 100);
 				}
-				newDeposit.setLoanTotal(loanTotal);
+
+				return Optional.of(newDeposit);
+			} else {
+				newDeposit.setLoanTotal(0.0);
 				newDeposit.setBasic(BASIC_AMOUNT);
-				newDeposit.setInterestTotal((loanTotal*TIME*INTEREST_RATE)/100);
-				newDeposit.setTotal(BASIC_AMOUNT+loanTotal+(loanTotal*TIME*INTEREST_RATE)/100);
+				newDeposit.setInterestTotal(0.0);
+				newDeposit.setTotal(BASIC_AMOUNT + 0.0 + 0.0);
+				return Optional.of(newDeposit);
 			}
-			return Optional.of(newDeposit);
 
 		}
 		return Optional.of(newDeposit);
