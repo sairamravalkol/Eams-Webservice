@@ -56,6 +56,8 @@ public class LoanController {
 		if (account.isPresent()) {
 			loan.setAccount(account.get());
 		}
+		loan.setAccId(account.get().getAccountId());
+		loan.setAccountName(account.get().getAccountName());
 		loanService.saveLoan(loan);
 		return new ResponseEntity<>("Created", HttpStatus.CREATED);
 	}
@@ -65,7 +67,7 @@ public class LoanController {
 			@PathVariable("accountId") String accountId) {
 		Optional<Account> account = accountService.getAccount(accountId);
 		if (account.isPresent()) {
-			loan.setAccount(account.get());
+			loan.setAccount(account.get());			
 			loanService.saveLoan(loan);
 			return new ResponseEntity<>("Accepted", HttpStatus.ACCEPTED);
 		}

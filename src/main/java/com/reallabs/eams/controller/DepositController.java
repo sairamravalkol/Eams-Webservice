@@ -1,5 +1,6 @@
 package com.reallabs.eams.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,8 @@ public class DepositController {
 	@PostMapping("Accounts/{accountId}/Deposits")
 	public void addDeposit(@PathVariable("accountId") String accountId, @RequestBody Deposit deposit) {
 		Account account = accountService.getAccount(accountId).get();
+		deposit.setAccId(account.getAccountId());
+		deposit.setAccountName(account.getAccountName());
 		deposit.setAccount(account);
 		depositService.saveDeposit(deposit);
 

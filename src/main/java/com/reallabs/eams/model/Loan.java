@@ -37,6 +37,31 @@ public class Loan implements Serializable{
 	@Column
 	private Double loanAmt;
 	@Column
+	private Long accId;
+	@Column
+	private String accountName;
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+
+	public Long getAccId() {
+		return accId;
+	}
+
+
+	public void setAccId(Long accId) {
+		this.accId = accId;
+	}
+
+
+	@Column
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;

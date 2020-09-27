@@ -36,6 +36,10 @@ public class Deposit implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long depositId;
 	@Column
+	private Long accId;	
+	@Column
+	private String accountName;
+	@Column
 	private Double basic;
 	@Column
 	private Double loanTotal;
@@ -96,6 +100,18 @@ public class Deposit implements Serializable{
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public Long getAccId() {
+		return accId;
+	}
+	public void setAccId(Long accId) {
+		this.accId = accId;
+	}
+	public String getAccountName() {
+		return accountName;
+	}
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 	@Override
 	public String toString() {
